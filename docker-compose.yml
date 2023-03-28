@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: 'postgres:alpine'
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/data:rw
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: lugiago
+
