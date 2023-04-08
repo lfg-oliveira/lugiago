@@ -1,21 +1,27 @@
 package com.lugiago.View;
 
+
+import com.lugiago.Controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 public abstract class State {
     StateManager stateManager = null;
+    Controller controller;
     // Superclasse responsável por gerenciar elementos e estado da janela
-    protected static JFrame frame = new JFrame();
-    public abstract void handleInput(String input);
+    protected static final JFrame frame = new JFrame();
+    public abstract void handleInput();
     public abstract void draw();
 
     public State(StateManager stateManager) {
         this.stateManager = stateManager;
     }
-
-    public void addObject(List<Object> o, Object i) {
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+    public final void  addObject(List<Object> o, Object i) {
         o.add(i);
     }
 
@@ -26,7 +32,12 @@ public abstract class State {
         State.frame.repaint();
     }
 
-    public static JFrame getFrame() {
+    public State(StateManager stateManager, Controller controller){
+        this.stateManager = stateManager;
+        draw();
+        setController(controller);
+    }
+    public final static JFrame getFrame() {
         return State.frame;
     }
 }

@@ -1,5 +1,7 @@
 package com.lugiago.View;
 
+import com.lugiago.Controller.Controller;
+
 import javax.swing.*;
 import java.util.Stack;
 
@@ -16,6 +18,9 @@ public class StateManager {
         frame.setVisible(true);
     }
 
+    public StateManager(Controller controller) {
+        this.currentState = new MainMenuState(this, controller);
+    }
     public StateManager(State currentState) {
         this.currentState = currentState;
     }
@@ -31,7 +36,8 @@ public class StateManager {
         this.currentState = currentState;
     }
 
-    public State getPreviousState() {
-        return this.previousStateStack.pop();
+    public State returnToPreviousState() {
+        this.currentState = this.previousStateStack.pop();
+        return currentState;
     }
 }

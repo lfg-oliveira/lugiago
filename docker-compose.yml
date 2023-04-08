@@ -2,15 +2,15 @@ version: '3.1'
 
 services:
   postgres:
-    image: 'postgres'
-    container_name: postgres
+    image: 'mysql'
+    container_name: mysql
     restart: unless-stopped
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
       - ./data:/var/data:rw
     environment:
-      POSTGRES_PASSWORD: 1234
-      POSTGRES_USER: lugiago
-      POSTGRES_DB: hospital
-
+      MYSQL_PASSWORD: 1234
+      MYSQL_USER: lugiago
+      MYSQL_DATABASE: hospital
+      MYSQL_RANDOM_ROOT_PASSWORD: true
