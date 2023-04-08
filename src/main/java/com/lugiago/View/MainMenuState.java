@@ -1,6 +1,7 @@
 package com.lugiago.View;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class MainMenuState extends State{
     public void draw() {
         // Configurando o layout do painel
         JPanel panel = new JPanel(new GridLayout(buttonList.size(), 1));
-
+        panel.setBorder(new EmptyBorder(200, 100, 100, 100));
         // Adicionando botões ao painel
         for (JButton button : buttonList) {
             panel.add(button);
