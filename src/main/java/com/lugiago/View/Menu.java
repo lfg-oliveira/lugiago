@@ -26,23 +26,66 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuBar = new javax.swing.JMenuBar();
+        jMFuncionario = new javax.swing.JMenu();
+        jMFuncionarioCadastar = new javax.swing.JMenuItem();
+        jMFuncionarioListar = new javax.swing.JMenuItem();
+        jMTurno = new javax.swing.JMenu();
+        jMTurnoCadastrar = new javax.swing.JMenuItem();
+        jMTurnoListar = new javax.swing.JMenuItem();
+        jMTurnoAlterar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu4.setText("Visualizar");
-        jMenuBar1.add(jMenu4);
+        jMFuncionario.setText("Funcionário");
 
-        jMenu2.setText("Cadastrar");
-        jMenuBar1.add(jMenu2);
+        jMFuncionarioCadastar.setText("Cadastrar");
+        jMFuncionarioCadastar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMFuncionarioCadastarActionPerformed(evt);
+            }
+        });
+        jMFuncionario.add(jMFuncionarioCadastar);
 
-        jMenu3.setText("Visualizar");
-        jMenuBar1.add(jMenu3);
+        jMFuncionarioListar.setText("Listar");
+        jMFuncionarioListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMFuncionarioListarActionPerformed(evt);
+            }
+        });
+        jMFuncionario.add(jMFuncionarioListar);
 
-        setJMenuBar(jMenuBar1);
+        jMenuBar.add(jMFuncionario);
+
+        jMTurno.setText("Turnos");
+
+        jMTurnoCadastrar.setText("Cadastrar");
+        jMTurnoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMTurnoCadastrarActionPerformed(evt);
+            }
+        });
+        jMTurno.add(jMTurnoCadastrar);
+
+        jMTurnoListar.setText("Listar");
+        jMTurnoListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMTurnoListarActionPerformed(evt);
+            }
+        });
+        jMTurno.add(jMTurnoListar);
+
+        jMTurnoAlterar.setText("Alterar");
+        jMTurnoAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMTurnoAlterarActionPerformed(evt);
+            }
+        });
+        jMTurno.add(jMTurnoAlterar);
+
+        jMenuBar.add(jMTurno);
+
+        setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,6 +100,26 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMTurnoListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMTurnoListarActionPerformed
+        (new TurnoListar()).setVisible(true);
+    }//GEN-LAST:event_jMTurnoListarActionPerformed
+
+    private void jMFuncionarioCadastarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFuncionarioCadastarActionPerformed
+        (new FuncionarioCadastrar()).setVisible(true);
+    }//GEN-LAST:event_jMFuncionarioCadastarActionPerformed
+
+    private void jMFuncionarioListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFuncionarioListarActionPerformed
+        (new FuncionarioListar()).setVisible(true);
+    }//GEN-LAST:event_jMFuncionarioListarActionPerformed
+
+    private void jMTurnoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMTurnoCadastrarActionPerformed
+        (new TurnoCadastrar()).setVisible(true);
+    }//GEN-LAST:event_jMTurnoCadastrarActionPerformed
+
+    private void jMTurnoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMTurnoAlterarActionPerformed
+        (new TurnoAlterar()).setVisible(true);
+    }//GEN-LAST:event_jMTurnoAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -95,9 +158,13 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMFuncionario;
+    private javax.swing.JMenuItem jMFuncionarioCadastar;
+    private javax.swing.JMenuItem jMFuncionarioListar;
+    private javax.swing.JMenu jMTurno;
+    private javax.swing.JMenuItem jMTurnoAlterar;
+    private javax.swing.JMenuItem jMTurnoCadastrar;
+    private javax.swing.JMenuItem jMTurnoListar;
+    private javax.swing.JMenuBar jMenuBar;
     // End of variables declaration//GEN-END:variables
 }
