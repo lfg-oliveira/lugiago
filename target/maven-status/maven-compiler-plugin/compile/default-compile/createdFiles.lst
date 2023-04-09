@@ -1,7 +1,8 @@
-com\lugiago\View\StateManager.class
+com\lugiago\db\Database.class
 com\lugiago\Controller\Controller.class
-com\lugiago\Controller\MainMenuController.class
-com\lugiago\Database\Database.class
+com\lugiago\View\CadastrarView.class
+com\lugiago\View\MainMenuHospitalState.class
+com\lugiago\View\CadastrarView$1.class
 com\lugiago\View\State.class
-com\lugiago\View\MainMenuState.class
 com\lugiago\App.class
+com\lugiago\View\MainFrame.class
