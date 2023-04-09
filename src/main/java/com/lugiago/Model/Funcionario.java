@@ -1,51 +1,74 @@
+
 package com.lugiago.Model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+/**
+ *
+ * @author gioma
+ */
+public class Funcionario {
+    
+    private int Id;
+    private int IdCargo;
+    private String Cargo;
+    private String Nome;
+    private int Codigo;
+    private String TipoCodigo;
 
-public class Funcionario extends Model{
-    /**
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    public Funcionario() throws SQLException, ClassNotFoundException {
-        super();
+    public Funcionario(int Id, int IdCargo, String Cargo, String Nome, int Codigo, String TipoCodigo) {
+        this.Id = Id;
+        this.IdCargo = IdCargo;
+        this.Cargo = Cargo;
+        this.Nome = Nome;
+        this.Codigo = Codigo;
+        this.TipoCodigo = TipoCodigo;
     }
 
-    /**
-     * Responsável por pegar informações no BD
-     *
-     * @param sql
-     * @return
-     */
-    @Override
-    public ResultSet getData(String sql, String[] information) throws SQLException {
-        Statement statement = con.createStatement();
-        return statement.executeQuery(sql);
+    public int getId() {
+        return Id;
     }
 
-    /**
-     * Insere novos dados no banco de dados
-     *
-     * @param sql
-     */
-    @Override
-    public void insertData(String sql) throws SQLException {
-        Statement stmt = con.createStatement();
-        if(stmt.executeUpdate(sql)> 0) {
-            System.out.println("Query rodou com sucesso.");
-        }
+    public void setId(int Id) {
+        this.Id = Id;
     }
 
-    /**
-     * Atualiza os dados existentes no BD
-     *
-     * @param sql
-     * @param newData
-     */
-    @Override
-    public void updateData(String sql, Object[] newData) throws SQLException {
-
+    public int getIdCargo() {
+        return IdCargo;
     }
+
+    public void setIdCargo(int IdCargo) {
+        this.IdCargo = IdCargo;
+    }
+
+    public String getCargo() {
+        return Cargo;
+    }
+
+    public void setCargo(String Cargo) {
+        this.Cargo = Cargo;
+    }
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String Nome) {
+        this.Nome = Nome;
+    }
+
+    public int getCodigo() {
+        return Codigo;
+    }
+
+    public void setCodigo(int Codigo) {
+        this.Codigo = Codigo;
+    }
+
+    public String getTipoCodigo() {
+        return TipoCodigo;
+    }
+
+    public void setTipoCodigo(String TipoCodigo) {
+        this.TipoCodigo = TipoCodigo;
+    }
+    
 }

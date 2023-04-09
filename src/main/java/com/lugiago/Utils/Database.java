@@ -1,4 +1,4 @@
-package com.lugiago.db;
+package com.lugiago.Utils;
 
 import java.sql.*;
 

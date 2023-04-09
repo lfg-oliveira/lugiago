@@ -1,6 +1,6 @@
 package com.lugiago.Controller;
 
-import com.lugiago.db.Database;
+import com.lugiago.Utils.Database;
 
 import java.sql.*;
 
