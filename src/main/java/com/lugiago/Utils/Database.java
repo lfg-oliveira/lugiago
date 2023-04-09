@@ -12,7 +12,7 @@ public class Database {
     public static Connection getConnection() throws SQLException, ClassNotFoundException{
         if(Database.connection == null) {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital", "lugiago", "1234");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital?allowPublicKeyRetrieval=true", "lugiago", "1234");
         }
         return connection;
     }

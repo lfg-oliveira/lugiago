@@ -16,16 +16,15 @@ import java.util.logging.Logger;
  * @author gioma
  */
 public class FuncionarioDAO {
-    
+
     private List<Funcionario> funcionarios = null;
-    
+
     //Função responsavel por popular a lista de Funcionarios na DAO.
-    
-    public FuncionarioDAO(){
+    public FuncionarioDAO() {
         Statement comando = null;
         Connection con = null;
-        
-         try {
+
+        try {
             if (funcionarios == null) {
                 funcionarios = new ArrayList<>();
 
@@ -33,9 +32,9 @@ public class FuncionarioDAO {
 
                 // Comando SQL responsavel por obter os funcionarios no banco de dados.
                 comando = con.createStatement();
-                String sql = "select f.id,nome,cargo as idCargo,descricao as Cargo,codigo,tipo_codigo as TipoCodigo\n" +
-                             "from Funcionario f \n" +
-                             "join Cargo c on c.id = f.Cargo";
+                String sql = "select f.id,nome,cargo as idCargo,descricao as Cargo,codigo,tipo_codigo as TipoCodigo\n"
+                        + "from Funcionario f \n"
+                        + "join Cargo c on c.id = f.Cargo";
                 ResultSet result = comando.executeQuery(sql);
 
                 // Enquanto houver dados no result.
@@ -47,8 +46,8 @@ public class FuncionarioDAO {
                     String cargo = result.getString("Cargo");
                     int codigo = result.getInt("codigo");
                     String tipoCodigo = result.getString("tipoCodigo");
-                    
-                    funcionarios.add(new Funcionario(id,idCargo,cargo,nome,codigo,tipoCodigo));
+
+                    funcionarios.add(new Funcionario(id, idCargo, cargo, nome, codigo, tipoCodigo));
                 }
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -57,20 +56,19 @@ public class FuncionarioDAO {
             try {
                 comando.close();
                 con.close();
-            } catch (SQLException ex) {
+            } catch (NullPointerException | SQLException ex) {
                 Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
+
     //Função responsavel por inserir os funcionarios no banco de dados.
-    
-    public void insere(Funcionario funcionario){
+    public boolean insere(Funcionario funcionario) {
         PreparedStatement comando = null;
         Connection con = null;
-        
-         try {
-           
+
+        try {
+
             con = Database.getConnection();
             comando = (PreparedStatement) con.createStatement();
             String sql = "insert into Funcionarios(nome,cargo,codigo) values (?,?,?)";
@@ -80,20 +78,23 @@ public class FuncionarioDAO {
             comando.executeUpdate(sql);
 
             funcionarios.add(funcionario);
-            
+
+            return true;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 comando.close();
                 con.close();
-            } catch (SQLException ex) {
+            } catch (NullPointerException | SQLException ex) {
                 Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        return false;
     }
-    
-   public List<Funcionario> getAllFuncionarios() {
+
+    public List<Funcionario> getAllFuncionarios() {
         return funcionarios;
-   }
+    }
 }

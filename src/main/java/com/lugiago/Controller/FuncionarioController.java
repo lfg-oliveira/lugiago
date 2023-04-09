@@ -8,9 +8,9 @@ public class FuncionarioController{
 
     private static FuncionarioDAO dao = new FuncionarioDAO();
     
-    public static void grava (int Id, int IdCargo, String Cargo, String Nome, int Codigo, String TipoCodigo){
-        Funcionario f = new Funcionario(Id, IdCargo, Cargo, Nome, Codigo, TipoCodigo);        
-        dao.insere(f);
+    public static boolean grava (int IdCargo, String Nome, int Codigo){
+        Funcionario f = new Funcionario(0, IdCargo, null, Nome, Codigo, null);        
+        return dao.insere(f);
     }
     
     public static List<Funcionario> getFuncionarios(){
