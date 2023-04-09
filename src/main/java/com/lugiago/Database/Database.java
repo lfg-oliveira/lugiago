@@ -11,7 +11,7 @@ public class Database {
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException{
         if(Database.connection == null) {
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital", "lugiago", "1234");
         }
         return connection;
