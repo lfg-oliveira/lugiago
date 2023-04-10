@@ -7,12 +7,19 @@ import java.sql.*;
  */
 public class Database {
     private static Connection connection;
+    
+    private final static String DBURL = "jdbc:mysql://localhost:3306/hospital?allowPublicKeyRetrieval=true";
+    private final static String USER = "lugiago";
+    private final static String PASSWORD = "1234";
+    
     private Database() {}
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException{
         if(Database.connection == null) {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital?allowPublicKeyRetrieval=true", "lugiago", "1234");
+            connection = DriverManager.getConnection(DBURL, USER, PASSWORD);
+        }else if(Database.connection.isClosed()){
+            connection = DriverManager.getConnection(DBURL, USER, PASSWORD);
         }
         return connection;
     }
