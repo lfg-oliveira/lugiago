@@ -10,7 +10,7 @@ services:
     volumes:
       - ./data:/var/lib/mysql:rw
     environment:
-      MYSQL_PASSWORD: 1234
+      MYSQL_PASSWORD: '1234'
       MYSQL_USER: lugiago
       MYSQL_DATABASE: hospital
       MYSQL_RANDOM_ROOT_PASSWORD: true
