@@ -33,9 +33,9 @@ public class TurnoDAO {
 
                 // Comando SQL responsavel por obter os Turnos no banco de dados.
                 comando = con.createStatement();
-                String sql = "select t.id,t.idFuncionario,f.nome as NomeFuncionario,c.descricao as Cargo,t.data as DataInicial,DATE_ADD(t.data,interval 12 hour) as DataFinal\n" +
+                String sql = "select t.id,t.IdFuncionario,f.nome as NomeFuncionario,c.descricao as Cargo,t.data as DataInicial,DATE_ADD(t.data,interval 12 hour) as DataFinal\n" +
                              "from turno t\n" +
-                             "join Funcionario f on t.idFuncionario = f.Id \n" +
+                             "join Funcionario f on t.IdFuncionario = f.Id \n" +
                              "join Cargo c on c.Id = f.Cargo ";
 
                 ResultSet result = comando.executeQuery(sql);
@@ -73,12 +73,12 @@ public class TurnoDAO {
         
          try {
            
-            con = Database.getConnection();
-            comando = (PreparedStatement) con.createStatement();
+            con = Database.getConnection();            
             String sql = "insert into Turnos(idFuncionario,data) values (?,?)";
+            comando = con.prepareStatement(sql);
             comando.setInt(1, turno.getIdFuncionario());
             comando.setDate(2, new java.sql.Date(turno.getDataInicial().getTime()));
-            comando.executeUpdate(sql);
+            comando.executeUpdate();
 
             turnos.add(turno);
             

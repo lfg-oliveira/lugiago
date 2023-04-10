@@ -32,9 +32,9 @@ public class FuncionarioDAO {
 
                 // Comando SQL responsavel por obter os funcionarios no banco de dados.
                 comando = con.createStatement();
-                String sql = "select f.id,nome,cargo as idCargo,descricao as Cargo,codigo,tipo_codigo as TipoCodigo\n"
-                        + "from Funcionario f \n"
-                        + "join Cargo c on c.id = f.Cargo";
+                String sql = "select f.Id, f.Nome, f.IdCargo, c.Descricao as Cargo, f.Codigo,c.TipoCodigo"
+                        + " from Funcionario f"
+                        + " join Cargo c on c.id = f.IdCargo";
                 ResultSet result = comando.executeQuery(sql);
 
                 // Enquanto houver dados no result.
@@ -70,12 +70,12 @@ public class FuncionarioDAO {
         try {
 
             con = Database.getConnection();
-            comando = (PreparedStatement) con.createStatement();
-            String sql = "insert into Funcionarios(nome,cargo,codigo) values (?,?,?)";
+            String sql = "insert into Funcionario(Nome,IdCargo,Codigo) values (?,?,?)";
+            comando = con.prepareStatement(sql);            
             comando.setString(1, funcionario.getNome());
             comando.setInt(2, funcionario.getIdCargo());
             comando.setInt(3, funcionario.getCodigo());
-            comando.executeUpdate(sql);
+            comando.executeUpdate();
 
             funcionarios.add(funcionario);
 
