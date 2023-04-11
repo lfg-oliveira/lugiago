@@ -4,6 +4,9 @@
  */
 package com.lugiago.View;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author tiago
@@ -15,6 +18,10 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        
+        // Adicionando iamgem ao menu inicial
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(getClass().getResource("/menu.jpg")).getImage().getScaledInstance(400, 300, Image.SCALE_DEFAULT));
+        jLabelImagem.setIcon(imageIcon);
     }
 
     /**
@@ -26,6 +33,7 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabelImagem = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
         jMFuncionario = new javax.swing.JMenu();
         jMFuncionarioCadastar = new javax.swing.JMenuItem();
@@ -36,6 +44,8 @@ public class Menu extends javax.swing.JFrame {
         jMTurnoAlterar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabelImagem.setText("   ");
 
         jMFuncionario.setText("Funcionário");
 
@@ -91,11 +101,15 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabelImagem)
+                .addGap(0, 391, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabelImagem)
+                .addGap(0, 264, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,6 +172,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelImagem;
     private javax.swing.JMenu jMFuncionario;
     private javax.swing.JMenuItem jMFuncionarioCadastar;
     private javax.swing.JMenuItem jMFuncionarioListar;

@@ -50,6 +50,7 @@ public class FuncionarioListar extends javax.swing.JFrame {
         jButtonVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Funcionário - Listagem");
 
         jPanelTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
