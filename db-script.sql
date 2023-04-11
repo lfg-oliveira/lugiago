@@ -30,7 +30,7 @@ Data Datetime not null,
 foreign key (IdFuncionario) references Funcionario(Id)
 );
 
-insert into Cargo(TipoCodigo, Descricao)
+insert into Cargo(Descricao, TipoCodigo)
 values ('Enfermeiro', 'COREN')
 	  ,('Médico', 'CRM')
 	  ,('Residente', 'CRM');
