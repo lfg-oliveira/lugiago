@@ -1,15 +1,20 @@
 package com.lugiago.View;
 
 import com.lugiago.Controller.FuncionarioController;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 public class FuncionarioCadastrar extends javax.swing.JFrame {
 
-    private final List<String> cargos = List.of("Enfermeiro", "Médico", "Residente");
+    private final List<String> cargos = new ArrayList<>();
 
     public FuncionarioCadastrar() {
+        cargos.add("Enfermeiro");
+        cargos.add("Médico");
+        cargos.add("Residente");
+        
         initComponents();
     }
 
