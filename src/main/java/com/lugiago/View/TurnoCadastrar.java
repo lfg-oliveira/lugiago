@@ -31,12 +31,11 @@ public class TurnoCadastrar extends javax.swing.JFrame {
 
     public TurnoCadastrar() {
         initComponents();
-        preencherTabela(this.jTable1);
+        preencherTabela(this.jTableTurnosSimplificado);
         
         List<String> funcionariosModelStringList = new ArrayList<>();
         funcionariosModelStringList.add("Selecione...");
-        for (Iterator iterator = funcionarios.iterator(); iterator.hasNext();) {
-            Funcionario prox = (Funcionario) iterator.next();
+        for (Funcionario prox : funcionarios) {
             funcionariosModelStringList.add(prox.getId() + "- " + prox.getNome());
         }
 
@@ -47,6 +46,7 @@ public class TurnoCadastrar extends javax.swing.JFrame {
 
             new MaskFormatter("##/##/#### ##:##:##").install(jFormattedDateFieldInicio);
             new MaskFormatter("##/##/#### ##:##:##").install(jFormattedDateFieldFim);
+            new MaskFormatter("##/##/#### ##:##:##").install(jFormattedDateFieldFimDescanso);
 
             jFormattedDateFieldInicio.getDocument().addDocumentListener(new DocumentListener() {
                 @Override
@@ -77,13 +77,15 @@ public class TurnoCadastrar extends javax.swing.JFrame {
         try {
             inicioTurno = LocalDateTime.parse(dtInicioStr, dtf);
             jFormattedDateFieldFim.setText(dtf.format(inicioTurno.plusHours(12)));
+            jFormattedDateFieldFimDescanso.setText(dtf.format(inicioTurno.plusHours(48)));
         } catch (DateTimeParseException ex) {
             inicioTurno = null;
             jFormattedDateFieldFim.setText("");
+            jFormattedDateFieldFimDescanso.setText("");
         }
     }
 
-    public void preencherTabela(JTable jTabela) {
+    public final void preencherTabela(JTable jTabela) {
 
         List<Turno> turnos = TurnosController.getTurnos();
         
@@ -99,6 +101,7 @@ public class TurnoCadastrar extends javax.swing.JFrame {
             jTabela.setValueAt(turnos.get(i).getNomeFuncionario(), posicaoLinha, 0);
             jTabela.setValueAt(turnos.get(i).getDataInicial().format(dtf), posicaoLinha, 1);
             jTabela.setValueAt(turnos.get(i).getDataFinal().format(dtf), posicaoLinha, 2);
+            jTabela.setValueAt(turnos.get(i).getDataFinal().plusHours(36).format(dtf), posicaoLinha, 3);
             posicaoLinha += 1;
         }
     }
@@ -112,46 +115,48 @@ public class TurnoCadastrar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPWrapper = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
+        jTableTurnosSimplificado = new javax.swing.JTable();
+        jPHorario = new javax.swing.JPanel();
         jFormattedDateFieldInicio = new javax.swing.JFormattedTextField();
         jLabelHorarioInicio = new javax.swing.JLabel();
         jLabelHorarioFim = new javax.swing.JLabel();
         jFormattedDateFieldFim = new javax.swing.JFormattedTextField();
-        jPanel2 = new javax.swing.JPanel();
+        jFormattedDateFieldFimDescanso = new javax.swing.JFormattedTextField();
+        jLabelHorarioFimDescanso = new javax.swing.JLabel();
+        jPFuncionario = new javax.swing.JPanel();
         jCBPlantonista = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jTFCargo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
+        jPControles = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Turnos - Cadastro");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPWrapper.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTurnosSimplificado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Inicio", "Fim"
+                "Nome", "Inicio Plantão", "Fim Plantão", "Fim Descanso"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -162,55 +167,63 @@ public class TurnoCadastrar extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(65);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTableTurnosSimplificado.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableTurnosSimplificado);
+        if (jTableTurnosSimplificado.getColumnModel().getColumnCount() > 0) {
+            jTableTurnosSimplificado.getColumnModel().getColumn(0).setResizable(false);
+            jTableTurnosSimplificado.getColumnModel().getColumn(1).setResizable(false);
         }
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Horários"));
-        jPanel3.setPreferredSize(new java.awt.Dimension(200, 100));
+        jPHorario.setBorder(javax.swing.BorderFactory.createTitledBorder("Horários"));
+        jPHorario.setPreferredSize(new java.awt.Dimension(200, 100));
 
-        jLabelHorarioInicio.setText("Inicio:");
+        jLabelHorarioInicio.setText("Inicio Turno:");
 
-        jLabelHorarioFim.setText("Fim:");
+        jLabelHorarioFim.setText("Fim Turno:");
 
         jFormattedDateFieldFim.setEditable(false);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jFormattedDateFieldFimDescanso.setEditable(false);
+
+        jLabelHorarioFimDescanso.setText("Fim Desc.:");
+
+        javax.swing.GroupLayout jPHorarioLayout = new javax.swing.GroupLayout(jPHorario);
+        jPHorario.setLayout(jPHorarioLayout);
+        jPHorarioLayout.setHorizontalGroup(
+            jPHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPHorarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelHorarioInicio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedDateFieldInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelHorarioFim)
-                        .addGap(13, 13, 13)
-                        .addComponent(jFormattedDateFieldFim)))
+                .addGroup(jPHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelHorarioFim)
+                    .addComponent(jLabelHorarioFimDescanso)
+                    .addComponent(jLabelHorarioInicio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jFormattedDateFieldFimDescanso)
+                    .addComponent(jFormattedDateFieldFim)
+                    .addGroup(jPHorarioLayout.createSequentialGroup()
+                        .addComponent(jFormattedDateFieldInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPHorarioLayout.setVerticalGroup(
+            jPHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPHorarioLayout.createSequentialGroup()
+                .addGroup(jPHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelHorarioInicio)
                     .addComponent(jFormattedDateFieldInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFormattedDateFieldFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelHorarioFim))
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPHorarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jFormattedDateFieldFimDescanso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelHorarioFimDescanso))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionário"));
+        jPFuncionario.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionário"));
 
         jCBPlantonista.setEditable(true);
         jCBPlantonista.addActionListener(new java.awt.event.ActionListener() {
@@ -229,18 +242,18 @@ public class TurnoCadastrar extends javax.swing.JFrame {
 
         jTFCodigo.setEditable(false);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPFuncionarioLayout = new javax.swing.GroupLayout(jPFuncionario);
+        jPFuncionario.setLayout(jPFuncionarioLayout);
+        jPFuncionarioLayout.setHorizontalGroup(
+            jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPFuncionarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPFuncionarioLayout.createSequentialGroup()
                         .addComponent(jTFCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
@@ -249,15 +262,15 @@ public class TurnoCadastrar extends javax.swing.JFrame {
                     .addComponent(jCBPlantonista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPFuncionarioLayout.setVerticalGroup(
+            jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPFuncionarioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCBPlantonista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(12, 12, 12)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTFCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
@@ -265,7 +278,7 @@ public class TurnoCadastrar extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jPControles.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jButton1.setText("Cancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -281,56 +294,56 @@ public class TurnoCadastrar extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPControlesLayout = new javax.swing.GroupLayout(jPControles);
+        jPControles.setLayout(jPControlesLayout);
+        jPControlesLayout.setHorizontalGroup(
+            jPControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPControlesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        jPControlesLayout.setVerticalGroup(
+            jPControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPControlesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(26, 26, 26))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPWrapperLayout = new javax.swing.GroupLayout(jPWrapper);
+        jPWrapper.setLayout(jPWrapperLayout);
+        jPWrapperLayout.setHorizontalGroup(
+            jPWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPWrapperLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPWrapperLayout.createSequentialGroup()
+                        .addComponent(jPHorario, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPWrapperLayout.setVerticalGroup(
+            jPWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPWrapperLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPWrapperLayout.createSequentialGroup()
+                        .addComponent(jPFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                        .addGroup(jPWrapperLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPHorario, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                            .addComponent(jPControles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -339,15 +352,15 @@ public class TurnoCadastrar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPWrapper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPWrapper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -376,7 +389,7 @@ public class TurnoCadastrar extends javax.swing.JFrame {
             if (TurnosController.validaDisponibiliade(funcionarioSelecionado.getId(), inicioTurno)) {
                 TurnosController.grava(funcionarioSelecionado.getId(), inicioTurno);
                 JOptionPane.showMessageDialog(null, "Turno cadastrado com sucesso!!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-                preencherTabela(this.jTable1);
+                preencherTabela(jTableTurnosSimplificado);
             }else{
                 JOptionPane.showMessageDialog(null, "Turno viola a regra 12/36!!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -434,19 +447,21 @@ public class TurnoCadastrar extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jCBPlantonista;
     private javax.swing.JFormattedTextField jFormattedDateFieldFim;
+    private javax.swing.JFormattedTextField jFormattedDateFieldFimDescanso;
     private javax.swing.JFormattedTextField jFormattedDateFieldInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelHorarioFim;
+    private javax.swing.JLabel jLabelHorarioFimDescanso;
     private javax.swing.JLabel jLabelHorarioInicio;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPControles;
+    private javax.swing.JPanel jPFuncionario;
+    private javax.swing.JPanel jPHorario;
+    private javax.swing.JPanel jPWrapper;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFCargo;
     private javax.swing.JTextField jTFCodigo;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableTurnosSimplificado;
     // End of variables declaration//GEN-END:variables
 }
