@@ -16,9 +16,9 @@ Descricao varchar(50) not null
 drop table if exists Funcionario;
 create table Funcionario(
 Id bigint not null primary key auto_increment,
-Codigo bigint not null unique key,
+Codigo varchar(30) not null unique key,
 Nome varchar(80) not null,
-idCargo varchar(30) not null,
+idCargo bigint not null,
 foreign key (idCargo) references Cargo(Id)
 );
 
