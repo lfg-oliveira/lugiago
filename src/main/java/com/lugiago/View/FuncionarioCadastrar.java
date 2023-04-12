@@ -175,6 +175,8 @@ public class FuncionarioCadastrar extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar funcionário!!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+        
+        jCBProfissao.setSelectedIndex(idCargo);
     }//GEN-LAST:event_jBSalvarActionPerformed
 
     /**
