@@ -14,6 +14,12 @@ public class Database {
     
     private Database() {}
 
+    /**
+     * Obtem uma nova conexão com o banco de dados.
+     * @return uma conexão válida.
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public static Connection getConnection() throws SQLException, ClassNotFoundException{
         if(Database.connection == null) {
             Class.forName("com.mysql.cj.jdbc.Driver");

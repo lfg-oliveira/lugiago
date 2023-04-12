@@ -11,10 +11,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author gioma
- */
 public class FuncionarioDAO {
 
     //Função responsavel por inserir os funcionarios no banco de dados.
@@ -29,7 +25,7 @@ public class FuncionarioDAO {
             comando = con.prepareStatement(sql);
             comando.setString(1, funcionario.getNome());
             comando.setInt(2, funcionario.getIdCargo());
-            comando.setInt(3, funcionario.getCodigo());
+            comando.setString(3, funcionario.getCodigo());
             comando.executeUpdate();
 
             return true;
@@ -48,7 +44,7 @@ public class FuncionarioDAO {
     }
     
     /***
-     * Função responsável por retornar a todos os Funcionários cadastrados no banco.
+     * Função responsável por retornar do banco de dados todos os Funcionários cadastrados.
      * @return Uma Lista de Funcionários
      */
     public List<Funcionario> getAllFuncionarios() {
@@ -74,7 +70,7 @@ public class FuncionarioDAO {
                 String nome = result.getString("nome");
                 int idCargo = result.getInt("idCargo");
                 String cargo = result.getString("Cargo");
-                int codigo = result.getInt("codigo");
+                String codigo = result.getString("codigo");
                 String tipoCodigo = result.getString("tipoCodigo");
 
                 funcionarios.add(new Funcionario(id, idCargo, cargo, nome, codigo, tipoCodigo));

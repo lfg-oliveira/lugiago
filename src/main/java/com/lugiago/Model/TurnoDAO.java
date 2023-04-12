@@ -2,7 +2,6 @@ package com.lugiago.Model;
 
 import com.lugiago.Utils.Database;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,15 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author gioma
- */
 public class TurnoDAO {
-
-    //Função responsavel por popular a lista de Turnos na DAO.
-    public TurnoDAO() {
-    }
 
     //Função para inserior turno no banco de dados.
     public void insere(Turno turno) {
@@ -102,6 +93,10 @@ public class TurnoDAO {
         return false;
     }
 
+    /**
+     * Função responsável por retornar do banco de dados todos os Turnos cadastrados.
+     * @return Lista de Turnos
+     */
     public List<Turno> getAllTurnos() {
         List<Turno> turnos = new ArrayList<>();
         Statement comando = null;
@@ -146,5 +141,39 @@ public class TurnoDAO {
         }
 
         return turnos;
+    }
+
+    /**
+     * Realiza a alteração de um turno fornecido para os valores nele inseridos.
+     * @param turno Turno já existente
+     * @return boolean indicando se a operação foi realizada com sucesso.
+     */
+    public boolean altera(Turno turno) {
+        PreparedStatement comando = null;
+        Connection con = null;
+
+        try {
+
+            con = Database.getConnection();
+            String sql = "update Turno set idFuncionario = ?, Data = ? where id = ?";
+            comando = con.prepareStatement(sql);
+            comando.setInt(1, turno.getIdFuncionario());
+            comando.setTimestamp(2, Timestamp.valueOf(turno.getDataInicial()));
+            comando.setInt(3, turno.getId());
+            
+            return comando.executeUpdate() > 0;
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(TurnoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                comando.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(TurnoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return false;
     }
 }

@@ -1,20 +1,15 @@
-
 package com.lugiago.Model;
 
-/**
- *
- * @author gioma
- */
 public class Funcionario {
     
     private int Id;
     private int IdCargo;
     private String Cargo;
     private String Nome;
-    private int Codigo;
+    private String Codigo;
     private String TipoCodigo;
 
-    public Funcionario(int Id, int IdCargo, String Cargo, String Nome, int Codigo, String TipoCodigo) {
+    public Funcionario(int Id, int IdCargo, String Cargo, String Nome, String Codigo, String TipoCodigo) {
         this.Id = Id;
         this.IdCargo = IdCargo;
         this.Cargo = Cargo;
@@ -55,11 +50,11 @@ public class Funcionario {
         this.Nome = Nome;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return Codigo;
     }
 
-    public void setCodigo(int Codigo) {
+    public void setCodigo(String Codigo) {
         this.Codigo = Codigo;
     }
 
@@ -70,5 +65,17 @@ public class Funcionario {
     public void setTipoCodigo(String TipoCodigo) {
         this.TipoCodigo = TipoCodigo;
     }
-    
+
+    /***
+     * 
+     * @param obj Objeto do tipo Funcionario
+     * @return Boolean indicado se é o mesmo objeto.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() == Funcionario.class){
+            return ((Funcionario)obj).getId() == this.getId();
+        }
+        return false;
+    }
 }

@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,10 +28,16 @@ public class TurnoCadastrar extends javax.swing.JFrame {
     private Funcionario funcionarioSelecionado = null;
     private LocalDateTime inicioTurno = null;
 
+    /**
+     * Inicializa o formulário de cadastro de turnos, também aplica máscaras ao
+     * campos de Datas Popula a combobox e adiciona os listeners que farão a
+     * dinâmica de processamento de datas para auxiliar o usuário a inserir o
+     * horário de inicio dos turnos.
+     */
     public TurnoCadastrar() {
         initComponents();
         preencherTabela(this.jTableTurnosSimplificado);
-        
+
         List<String> funcionariosModelStringList = new ArrayList<>();
         funcionariosModelStringList.add("Selecione...");
         for (Funcionario prox : funcionarios) {
@@ -70,7 +75,9 @@ public class TurnoCadastrar extends javax.swing.JFrame {
         }
     }
 
-    // Realiza o calculo da diferença de horas entre os turnos
+    /**
+     * Realiza o calculo da diferença de horas entre os turnos
+     */
     private void processarDataFinal() {
         String dtInicioStr = jFormattedDateFieldInicio.getText();
 
@@ -85,10 +92,15 @@ public class TurnoCadastrar extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Recebe um elemento JTable e o popula com os dados do banco.
+     *
+     * @param jTabela JTable a ser populado
+     */
     public final void preencherTabela(JTable jTabela) {
 
         List<Turno> turnos = TurnosController.getTurnos();
-        
+
         DefaultTableModel dtm = (DefaultTableModel) jTabela.getModel();
 
         dtm.setRowCount(turnos.size());
@@ -105,7 +117,7 @@ public class TurnoCadastrar extends javax.swing.JFrame {
             posicaoLinha += 1;
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,8 +145,8 @@ public class TurnoCadastrar extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTFCodigo = new javax.swing.JTextField();
         jPControles = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBtnCancelar = new javax.swing.JButton();
+        jBtnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Turnos - Cadastro");
@@ -182,8 +194,10 @@ public class TurnoCadastrar extends javax.swing.JFrame {
         jLabelHorarioFim.setText("Fim Turno:");
 
         jFormattedDateFieldFim.setEditable(false);
+        jFormattedDateFieldFim.setEnabled(false);
 
         jFormattedDateFieldFimDescanso.setEditable(false);
+        jFormattedDateFieldFimDescanso.setEnabled(false);
 
         jLabelHorarioFimDescanso.setText("Fim Desc.:");
 
@@ -235,12 +249,14 @@ public class TurnoCadastrar extends javax.swing.JFrame {
         jLabel1.setText("Cargo:");
 
         jTFCargo.setEditable(false);
+        jTFCargo.setEnabled(false);
 
         jLabel2.setText("Plantonista:");
 
         jLabel3.setText("Código: ");
 
         jTFCodigo.setEditable(false);
+        jTFCodigo.setEnabled(false);
 
         javax.swing.GroupLayout jPFuncionarioLayout = new javax.swing.GroupLayout(jPFuncionario);
         jPFuncionario.setLayout(jPFuncionarioLayout);
@@ -280,17 +296,17 @@ public class TurnoCadastrar extends javax.swing.JFrame {
 
         jPControles.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnCancelar.setText("Cancelar");
+        jBtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnCancelarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Salvar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBtnSalvar.setText("Salvar");
+        jBtnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBtnSalvarActionPerformed(evt);
             }
         });
 
@@ -301,17 +317,17 @@ public class TurnoCadastrar extends javax.swing.JFrame {
             .addGroup(jPControlesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPControlesLayout.setVerticalGroup(
             jPControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPControlesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jBtnSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jBtnCancelar)
                 .addGap(26, 26, 26))
         );
 
@@ -366,16 +382,23 @@ public class TurnoCadastrar extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    /**
+     * Evento do botão de Cancelamento, fecha a tela e retorna ao menu.
+     */
+    private void jBtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCancelarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBtnCancelarActionPerformed
 
+    /**
+     * Evento de ação no ComboBox de plantonistas no qual irá obter os dados do
+     * plantonista selecionado e aplicá-los ao formulário
+     */
     private void jCBPlantonistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBPlantonistaActionPerformed
         try {
             funcionarioSelecionado = funcionarios.get(jCBPlantonista.getSelectedIndex() - 1);
 
             jTFCargo.setText(funcionarioSelecionado.getCargo());
-            jTFCodigo.setText(Integer.toString(funcionarioSelecionado.getCodigo()));
+            jTFCodigo.setText(funcionarioSelecionado.getCodigo());
         } catch (IndexOutOfBoundsException ex) {
             jTFCargo.setText("");
             jTFCodigo.setText("");
@@ -384,19 +407,23 @@ public class TurnoCadastrar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jCBPlantonistaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    /**
+     * Evento do botão de salvamento, irá validar as informações do formulários
+     * e enviar os dados para persistencia via controller.
+     */
+    private void jBtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalvarActionPerformed
         if (funcionarioSelecionado != null && inicioTurno != null) {
             if (TurnosController.validaDisponibiliade(funcionarioSelecionado.getId(), inicioTurno)) {
                 TurnosController.grava(funcionarioSelecionado.getId(), inicioTurno);
                 JOptionPane.showMessageDialog(null, "Turno cadastrado com sucesso!!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
                 preencherTabela(jTableTurnosSimplificado);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Turno viola a regra 12/36!!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Informações insuficientes para cadastrar Turno!!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jBtnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -443,8 +470,8 @@ public class TurnoCadastrar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBtnCancelar;
+    private javax.swing.JButton jBtnSalvar;
     private javax.swing.JComboBox<String> jCBPlantonista;
     private javax.swing.JFormattedTextField jFormattedDateFieldFim;
     private javax.swing.JFormattedTextField jFormattedDateFieldFimDescanso;

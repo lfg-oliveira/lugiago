@@ -8,6 +8,18 @@ import javax.swing.table.DefaultTableModel;
 
 public class FuncionarioListar extends javax.swing.JFrame {
 
+    /***
+     * Incializa o formulário e o preenche.
+     */
+    public FuncionarioListar() {
+        initComponents();
+        preencherTabela(this.jTableFuncionarios);
+    }
+    
+    /***
+     * Recebe um elemento JTable e o popula com os dados do banco.
+     * @param jTabela JTable a ser populado
+     */
     public void preencherTabela(JTable jTabela) {
 
         List<Funcionario> funcionarios = FuncionarioController.getFuncionarios();
@@ -27,12 +39,6 @@ public class FuncionarioListar extends javax.swing.JFrame {
             jTabela.setValueAt(funcionarios.get(i).getCargo(), posicaoLinha, 3);
             posicaoLinha += 1;
         }
-    }
-
-
-    public FuncionarioListar() {
-        initComponents();
-        preencherTabela(this.jTableFuncionarios);
     }
 
     /**
@@ -135,7 +141,10 @@ public class FuncionarioListar extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+        
+    /**
+     * Evento do botão Voltar, fecha a tela e retorna ao menu.
+     */
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonVoltarActionPerformed

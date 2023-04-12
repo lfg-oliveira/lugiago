@@ -1,24 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.lugiago.View;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author tiago
- */
 public class Menu extends javax.swing.JFrame {
 
     /**
-     * Creates new form MainMenu
+     * Inicializa o menu.
      */
     public Menu() {
         initComponents();
-        
+
         // Adicionando iamgem ao menu inicial
         ImageIcon imageIcon = new ImageIcon(new ImageIcon(getClass().getResource("/menu.jpg")).getImage().getScaledInstance(400, 300, Image.SCALE_DEFAULT));
         jLabelImagem.setIcon(imageIcon);
@@ -115,22 +107,37 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Botão para acessar a Listagem de Turnos
+     */
     private void jMTurnoListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMTurnoListarActionPerformed
         (new TurnoListar()).setVisible(true);
     }//GEN-LAST:event_jMTurnoListarActionPerformed
 
+    /**
+     * Botão para acessar o Cadastro de Funcionários
+     */
     private void jMFuncionarioCadastarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFuncionarioCadastarActionPerformed
         (new FuncionarioCadastrar()).setVisible(true);
     }//GEN-LAST:event_jMFuncionarioCadastarActionPerformed
 
+    /**
+     * Botão para acessar a Listagem de Funcionários
+     */
     private void jMFuncionarioListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFuncionarioListarActionPerformed
         (new FuncionarioListar()).setVisible(true);
     }//GEN-LAST:event_jMFuncionarioListarActionPerformed
 
+    /**
+     * Botão para acessar o Cadastro de Turnos
+     */
     private void jMTurnoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMTurnoCadastrarActionPerformed
         (new TurnoCadastrar()).setVisible(true);
     }//GEN-LAST:event_jMTurnoCadastrarActionPerformed
 
+    /**
+     * Botão para acessar a Alteração de Turnos
+     */
     private void jMTurnoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMTurnoAlterarActionPerformed
         (new TurnoAlterar()).setVisible(true);
     }//GEN-LAST:event_jMTurnoAlterarActionPerformed
