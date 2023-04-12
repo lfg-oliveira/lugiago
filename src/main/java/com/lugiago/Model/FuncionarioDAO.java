@@ -49,15 +49,14 @@ public class FuncionarioDAO {
     
     /***
      * Função responsável por retornar a todos os Funcionários cadastrados no banco.
-     * @return Uma coleção de Funcionários
+     * @return Uma Lista de Funcionários
      */
     public List<Funcionario> getAllFuncionarios() {
+        List<Funcionario> funcionarios = new ArrayList<>();
         Statement comando = null;
         Connection con = null;
-
+        
         try {
-            List<Funcionario> funcionarios = new ArrayList<>();
-
             con = Database.getConnection();
 
             // Comando SQL responsavel por obter os funcionarios no banco de dados.
@@ -92,7 +91,6 @@ public class FuncionarioDAO {
                 Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        return null;
+        return funcionarios;
     }
 }

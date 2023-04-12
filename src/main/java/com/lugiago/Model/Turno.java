@@ -3,20 +3,16 @@ package com.lugiago.Model;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-/**
- *
- * @author gioma
- */
 public class Turno {
     
     private int id;
     private int idFuncionario;
     private String NomeFuncionario;
     private String Cargo;
-    private Date DataInicial;
-    private Date DataFinal;
+    private LocalDateTime DataInicial;
+    private LocalDateTime DataFinal;
 
-    public Turno(int id, int idFuncionario, String NomeFuncionario, String Cargo, Date DataInicial, Date DataFinal) {
+    public Turno(int id, int idFuncionario, String NomeFuncionario, String Cargo, LocalDateTime DataInicial, LocalDateTime DataFinal) {
         this.id = id;
         this.idFuncionario = idFuncionario;
         this.NomeFuncionario = NomeFuncionario;
@@ -57,19 +53,19 @@ public class Turno {
         this.Cargo = Cargo;
     }
 
-    public Date getDataInicial() {
+    public LocalDateTime getDataInicial() {
         return DataInicial;
     }
 
-    public void setDataInicial(Date DataInicial) {
+    public void setDataInicial(LocalDateTime DataInicial) {
         this.DataInicial = DataInicial;
     }
 
-    public Date getDataFinal() {
+    public LocalDateTime getDataFinal() {
         return DataFinal;
     }
 
-    public void setDataFinal(Date DataFinal) {
+    public void setDataFinal(LocalDateTime DataFinal) {
         this.DataFinal = DataFinal;
     }
    
