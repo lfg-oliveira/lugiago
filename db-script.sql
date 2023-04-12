@@ -26,7 +26,7 @@ drop table if exists Turno;
 create table Turno (
 Id bigint not null primary key auto_increment,
 IdFuncionario bigint not null,
-Data Datetime not null,
+Data Timestamp not null,
 foreign key (IdFuncionario) references Funcionario(Id)
 );
 
